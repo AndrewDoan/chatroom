@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 // create the express app
 var app = express();
+app.set('port', (process.env.PORT || 5000));
 var messages = [];
 var users = {};
 // static content 
@@ -15,9 +16,9 @@ app.get('/', function(req, res) {
  res.render("index");
 })
 // tell the express app to listen on port 8000
-var server = app.listen(8000, function() {
- console.log("listening on port 8000");
-})
+var server = app.listen(app.get('port'), function() {
+  console.log('Node app is runing on port', app.get('port'));
+});
 
 var io=require("socket.io").listen(server);
 io.sockets.on("connection", function(socket){
